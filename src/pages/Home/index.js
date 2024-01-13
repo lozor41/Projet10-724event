@@ -11,9 +11,11 @@ import Icon from "../../components/Icon";
 import Form from "../../containers/Form";
 import Modal from "../../containers/Modal";
 import { useData } from "../../contexts/DataContext";
+import ModalEvent from "../../containers/ModalEvent";
 
 const Page = () => {
-  const {last} = useData()
+  const {data} = useData()   // obtention des données
+  const last = data?.events?.[data.events.length - 1];  // vérifie si données data + event sont présente
   return <>
     <header>
       <Menu />
@@ -115,15 +117,22 @@ const Page = () => {
     </main>
     <footer className="row">
       <div className="col presta">
-        <h3>Notre derniére prestation</h3>
-        <EventCard
-          imageSrc={last?.cover}
-          title={last?.title}
-          date={new Date(last?.date)}
-          small
-          label="boom"
-        />
-      </div>
+    <h3>Notre dernière prestation</h3>
+    {last && (
+      <Modal Content={<ModalEvent event={last}  />}>
+        {({ setIsOpened }) => (
+          <EventCard
+            onClick={() => setIsOpened(true)}
+            imageSrc={last.cover}
+            title={last.title}
+            date={new Date(last.date)}
+            label="boom"
+            className="EventCard EventCard--small"
+          />
+        )}
+      </Modal>
+    )}
+  </div>
       <div className="col contact">
         <h3>Contactez-nous</h3>
         <address>45 avenue de la République, 75000 Paris</address>

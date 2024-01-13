@@ -16,9 +16,11 @@ const EventList = () => {
   const filteredEvents = (
     (!type
       ? data?.events
-      : data?.events) || []
+      : data?.events.filter((elem)=>elem.type === type)) || []
   ).filter((event, index) => {
+    const typeFilter = !type || event.type === type;
     if (
+      typeFilter &&
       (currentPage - 1) * PER_PAGE <= index &&
       PER_PAGE * currentPage > index
     ) {
@@ -56,7 +58,7 @@ const EventList = () => {
                     label={event.type}
                   />
                 )}
-              </Modal>
+              </Modal> 
             ))}
           </div>
           <div className="Pagination">
