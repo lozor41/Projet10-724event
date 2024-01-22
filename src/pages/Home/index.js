@@ -15,7 +15,16 @@ import ModalEvent from "../../containers/ModalEvent";
 
 const Page = () => {
   const {data} = useData()   // obtention des données
-  const last = data?.events?.[data.events.length - 1];  // vérifie si données data + event sont présente
+  const last =
+  data && data.events && data.events.length > 0
+    ? data.events.reduce((latest, current) => {
+        // Utiliser la date pour comparer et trouver la prestation la plus récente
+        const latestDate = new Date(latest.date);
+        const currentDate = new Date(current.date);
+
+        return currentDate > latestDate ? current : latest;
+      })
+    : null;
   return <>
     <header>
       <Menu />
