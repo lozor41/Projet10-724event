@@ -22,7 +22,8 @@ const Slider = () => {
   return (
     <div className="SlideCardList">
       {byDateDesc?.map((event, idx) => (
-        <>
+        // eslint-disable-next-line react/no-array-index-key
+        <div key={`slider-${idx}`}>
           <div
             key={event.title}
             className={`SlideCard SlideCard--${index === idx ? "display" : "hide"
@@ -45,11 +46,12 @@ const Slider = () => {
                   type="radio"
                   name="radio-button"
                   checked={index === radioIdx} // fixed by replacing idx by index
+                  readOnly
                 />
               ))}
             </div>
           </div>
-        </>
+        </div>
       ))}
     </div>
   );

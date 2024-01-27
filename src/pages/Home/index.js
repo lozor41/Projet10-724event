@@ -14,17 +14,7 @@ import { useData } from "../../contexts/DataContext";
 import ModalEvent from "../../containers/ModalEvent";
 
 const Page = () => {
-  const {data} = useData()   // obtention des données
-  const last =
-  data && data.events && data.events.length > 0
-    ? data.events.reduce((latest, current) => {
-        // Utiliser la date pour comparer et trouver la prestation la plus récente
-        const latestDate = new Date(latest.date);
-        const currentDate = new Date(current.date);
-
-        return currentDate > latestDate ? current : latest;
-      })
-    : null;
+  const { last } = useData()   // obtention du dernier événement issu du context data
   return <>
     <header>
       <Menu />
@@ -126,22 +116,22 @@ const Page = () => {
     </main>
     <footer className="row">
       <div className="col presta">
-    <h3>Notre dernière prestation</h3>
-    {last && (
-      <Modal Content={<ModalEvent event={last}  />}>
-        {({ setIsOpened }) => (
-          <EventCard
-            onClick={() => setIsOpened(true)}
-            imageSrc={last.cover}
-            title={last.title}
-            date={new Date(last.date)}
-            label="boom"
-            className="EventCard EventCard--small"
-          />
+        <h3>Notre dernière prestation</h3>
+        {last && (
+          <Modal Content={<ModalEvent event={last} />}>
+            {({ setIsOpened }) => (
+              <EventCard
+                onClick={() => setIsOpened(true)}
+                imageSrc={last.cover}
+                title={last.title}
+                date={new Date(last.date)}
+                label="boom"
+                className="EventCard EventCard--small"
+              />
+            )}
+          </Modal>
         )}
-      </Modal>
-    )}
-  </div>
+      </div>
       <div className="col contact">
         <h3>Contactez-nous</h3>
         <address>45 avenue de la République, 75000 Paris</address>

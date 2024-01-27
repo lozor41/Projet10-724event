@@ -19,9 +19,18 @@ export const api = {
 export const DataProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
+  const [last, setLast] = useState(null)
   const getData = useCallback(async () => {
     try {
-      setData(await api.loadData());
+      const loadedData = await api.loadData()
+      setData(loadedData);
+      setLast(loadedData.events.reduce((latest, current) => {
+        // Utiliser la date pour comparer et trouver la prestation la plus récente
+        const latestDate = new Date(latest.date);
+        const currentDate = new Date(current.date);
+
+        return currentDate > latestDate ? current : latest;
+      }))
     } catch (err) {
       setError(err);
     }
@@ -30,13 +39,14 @@ export const DataProvider = ({ children }) => {
     if (data) return;
     getData();
   });
-  
+
   return (
     <DataContext.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
         data,
         error,
+        last
       }}
     >
       {children}
