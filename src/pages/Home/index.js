@@ -121,7 +121,7 @@ const Page = () => {
           <Modal Content={<ModalEvent event={last} />}>
             {({ setIsOpened }) => (
               <EventCard
-                onClick={() => setIsOpened(true)}
+                onClick={() => setIsOpened(true)} // validation du click message envoyé
                 imageSrc={last.cover}
                 title={last.title}
                 date={new Date(last.date)}
