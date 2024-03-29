@@ -2,6 +2,7 @@
   "name": "724-events",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://lozor41.github.io/Projet10-724event/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.1.1",
@@ -20,7 +21,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "lint": "eslint .eslintrc.js ./src",
-    "format": "prettier ./src --write"
+    "format": "prettier ./src --write",
+    "predeploy": "yarn build"
   },
   "eslintConfig": {
     "extends": [
